@@ -165,11 +165,21 @@ class _SignUpState extends State<SignUp> {
         headers: {'Content-Type': 'application/json',},
         body: json
         );
-      print(response.statusCode);
-      print(response.body);
-      
-      //  User user = User.fromJson(response.body);
-  
-      print('got data');
+
+      if(response.statusCode == 201){
+        userDetailsPage(response.body);
+      } 
+  }
+  void userDetailsPage(String responseBody) async{
+    Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
+      String id = map['userId'];
+      String type = map['type'];
+
+    //save id and type
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString("userId", id);
+        prefs.setString("type", type);
+
+        //go to home page
   }
 }

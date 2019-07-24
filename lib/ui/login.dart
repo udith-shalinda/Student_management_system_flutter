@@ -175,16 +175,22 @@ class _LoginState extends State<Login> {
         headers: {'Content-Type': 'application/json',},
         body: json
         );
-      print(response.statusCode);
-      print(response);
-     Map<String, dynamic> map = jsonDecode(response.body); // import 'dart:convert';
 
+      if(response.statusCode == 201){
+        homePage(response.body);
+      }      
+  }
+  void homePage(String responseBody) async{
+    Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
       String id = map['userId'];
       String type = map['type'];
-      print(id);
-      print(response.body);
 
-  
-      print('got data');
+    //save id and type
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString("userId", id);
+        prefs.setString("type", type);
+
+        //go to home page
   }
+
 }
