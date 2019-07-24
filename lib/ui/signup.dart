@@ -20,6 +20,8 @@ class _SignUpState extends State<SignUp> {
   String _formpassword;
   String newUserKey ="";
 
+  
+
 
   @override
   Widget build(BuildContext context) {

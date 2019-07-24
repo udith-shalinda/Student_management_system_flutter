@@ -161,14 +161,13 @@ class _LoginState extends State<Login> {
   void loginButton(){
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      // databaseReference.onChildAdded.listen(getTheUser);
       signInWithCredentials(_email, _formpassword);
     }
   }
 
   void signInWithCredentials(String email, String password) async {
-    String url = 'http://10.0.2.2:3000/user/login';
-       String json = '{"email":"'+ email + '","password":"'+password+'"}';
+      String url = 'http://10.0.2.2:3000/user/login';
+      String json = '{"email":"'+ email + '","password":"'+password+'"}';
        
       var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
