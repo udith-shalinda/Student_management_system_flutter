@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodle_clone/ui/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -149,7 +150,7 @@ class _LoginState extends State<Login> {
   void signUp(){
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
-          // return new SignUp();
+          return new SignUp();
         });
     Navigator.of(context).push(router);
   }
