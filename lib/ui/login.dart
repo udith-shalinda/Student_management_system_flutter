@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moodle_clone/modle/user.dart';
 import 'package:moodle_clone/ui/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-// import 'dart:async';
+import 'dart:async';
+import 'dart:convert';
 
 
 
@@ -174,7 +176,14 @@ class _LoginState extends State<Login> {
         body: json
         );
       print(response.statusCode);
+      print(response);
+     Map<String, dynamic> map = jsonDecode(response.body); // import 'dart:convert';
+
+      String id = map['userId'];
+      String type = map['type'];
+      print(id);
       print(response.body);
+
   
       print('got data');
   }

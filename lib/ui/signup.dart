@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:moodle_clone/modle/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 
+enum SingingCharacter { Student, Lecture }
 
 
 class SignUp extends StatefulWidget {
@@ -19,7 +21,7 @@ class _SignUpState extends State<SignUp> {
   String _email;
   String _formpassword;
   String newUserKey ="";
-
+  SingingCharacter _character = SingingCharacter.Student;
   
 
 
@@ -37,7 +39,7 @@ class _SignUpState extends State<SignUp> {
         ),
         centerTitle: true,
       ),
-      body: new Stack(
+      body: new ListView(
         children: <Widget>[
 //          new Center(
 //            child: new Image.asset(
@@ -111,6 +113,18 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
+                RadioListTile<SingingCharacter>(
+                title: const Text('Student'),
+                value: SingingCharacter.Student,
+                groupValue: _character,
+                onChanged: (SingingCharacter value) { setState(() { _character = value; }); },
+                ),
+                RadioListTile<SingingCharacter>(
+                  title: const Text('Lecture'),
+                  value: SingingCharacter.Lecture,
+                  groupValue: _character,
+                  onChanged: (SingingCharacter value) { setState(() { _character = value; }); },
+                ),
                 RaisedButton(
                   onPressed: signupButton ,
                   color: Color.fromRGBO(52, 66, 86, 1),
@@ -133,20 +147,28 @@ class _SignUpState extends State<SignUp> {
   void signupButton(){
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      signupwithEmail(_email, _formpassword);
+      signupwithEmail(_email, _formpassword,_character.index);
+     
     }
   }
 
-  signupwithEmail(String email, String password) async {
+  signupwithEmail(String email, String password,int _characterIndex) async {
+      String json;
       String url = 'http://10.0.2.2:3000/user/signup';
-       String json = '{"email":"'+ email + '","password":"'+password+'"}';
+      if(_characterIndex == 0){
+        json = '{"email":"'+ email + '","password":"'+password+'","type":"student"}';
+      }else{
+        json = '{"email":"'+ email + '","password":"'+password+'","type":"lecture"}';        
+      }
        
       var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
         body: json
         );
       print(response.statusCode);
-      // print(response.body);
+      print(response.body);
+      
+      //  User user = User.fromJson(response.body);
   
       print('got data');
   }
