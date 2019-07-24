@@ -148,7 +148,4 @@ class _SignUpState extends State<SignUp> {
   
       print('got data');
   }
-  void createUser(){
-    
-  }
 }

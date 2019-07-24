@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moodle_clone/ui/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+// import 'dart:async';
+
 
 
 
@@ -164,31 +167,16 @@ class _LoginState extends State<Login> {
   }
 
   void signInWithCredentials(String email, String password) async {
-  //   FirebaseUser user;
-  //   final prefs = await SharedPreferences.getInstance();   //save username
-  //   try{
-  //     user = await _firebaseAuth.signInWithEmailAndPassword(
-  //         email: email,
-  //         password: password
-  //     );
-  //   }catch(e){
-  //     print(e.toString());
-  //   }finally{
-  //     if(user != null){
-  //       incorrectPassword = false;
-  //       prefs.setString("userEmail", _email);
-  //       prefs.setString("userKey", userKey);
-  //       var router = new MaterialPageRoute(
-  //           builder: (BuildContext context){
-  //             return new Home();
-  //           });
-  //       Navigator.of(context).push(router);
-  //     }else{
-  //       print("Authentication failed");
-  //       setState(() {
-  //         incorrectPassword = true;
-  //       });
-  //     }
-  //   }
+    String url = 'http://10.0.2.2:3000/user/login';
+       String json = '{"email":"'+ email + '","password":"'+password+'"}';
+       
+      var response = await http.Client().post(url ,
+        headers: {'Content-Type': 'application/json',},
+        body: json
+        );
+      print(response.statusCode);
+      print(response.body);
+  
+      print('got data');
   }
 }
