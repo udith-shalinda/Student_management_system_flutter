@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -109,7 +111,7 @@ class UserDetailsState extends State<UserDetails> {
                     ),
                   ),
                   RaisedButton(
-                    onPressed: updateDetails ,
+                    onPressed: saveData ,
                     color: Color.fromRGBO(52, 66, 86, 1),
                     child: Text(
                       'Post',
@@ -130,7 +132,7 @@ class UserDetailsState extends State<UserDetails> {
 
   void getSharedPreference() async{
     final prefs = await SharedPreferences.getInstance();   //save username
-    if(prefs.getString('userEmail') == null){
+    if(prefs.getString('userId') == null){
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => Login()),
@@ -141,8 +143,31 @@ class UserDetailsState extends State<UserDetails> {
       type = prefs.getString('type');
     }
   }
-  void updateDetails(){
-    // String url = 'http://10.0.2.2:3000/user/signup';
-    // String json = '{"name":"'+ name + '","mobile":"'+mobile+'","userId":"'+id+'"}';
+  void saveData(){
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      updateDetails();
+    }
+  }
+  void updateDetails() async {
+    String url = 'http://10.0.2.2:3000/userDetails/add';
+    String json = '{"name":"'+ name + '","mobile":"'+mobile+'","creater":"'+ id +'"}';
+     var response = await http.Client().post(url ,
+        headers: {'Content-Type': 'application/json',},
+        body: json
+        );
+
+      if(response.statusCode == 201){
+        homePage(response.body);
+      }    
+  }
+  void homePage(String responseBody) async{
+    Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
+      String message = map['message'];
+      print(message);
+
+
+
+        //go to home page
   }
 }

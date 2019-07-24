@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:moodle_clone/modle/user.dart';
+import 'package:moodle_clone/ui/userDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -180,6 +181,14 @@ class _SignUpState extends State<SignUp> {
         prefs.setString("userId", id);
         prefs.setString("type", type);
 
-        //go to home page
+        //go to userdetails page
+        
+
+        var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new UserDetails();
+            });
+        Navigator.of(context).push(router);
+
   }
 }

@@ -189,6 +189,7 @@ class _LoginState extends State<Login> {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString("userId", id);
         prefs.setString("type", type);
+        print(prefs.getString('userId'));
 
         //go to home page
   }
