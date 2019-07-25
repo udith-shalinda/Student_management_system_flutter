@@ -225,9 +225,6 @@ class CourseCreaterState extends State<CourseCreater> {
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
       String courseId = map['courseId'];
       print(courseId);
-
-
-
         //go to home page
   }
 }
