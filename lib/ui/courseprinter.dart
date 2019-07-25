@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 
 class CoursePrinter extends StatefulWidget {
@@ -32,8 +33,18 @@ class _CoursePrinterState extends State<CoursePrinter> {
       ),
     );
   }
-  
+
   void searchKeyPressed(){
 
+  }
+  void getAllCourses() async{
+    String url = 'http://10.0.2.2:3000/course/getAll';
+    var response = await http.Client().get(url ,
+        headers: {'Content-Type': 'application/json',},
+        );
+
+        if(response.statusCode ==201){
+          print(response.body);
+        }
   }
 }
