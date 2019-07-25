@@ -18,6 +18,8 @@ class CourseCreaterState extends State<CourseCreater> {
   var _formKey = GlobalKey<FormState>();
   String courseName;
   String hours;
+  String credit;
+  String courseCode;
 
 
   @override
@@ -92,6 +94,35 @@ class CourseCreaterState extends State<CourseCreater> {
                       validator: (value){
 
                         if(value.length == 0){
+                          return "Course code cannot be empty";
+                        }
+                      },
+                      onSaved: (value){
+                        courseCode = value;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Enter the course code",
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        //errorText: incorrectPassword ? "User email or password is incorrect":null,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: TextFormField(
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                      //obscureText: true,
+                      validator: (value){
+
+                        if(value.length == 0){
                           return "course name cannot be empty";
                         }
                       },
@@ -100,6 +131,35 @@ class CourseCreaterState extends State<CourseCreater> {
                       },
                       decoration: InputDecoration(
                         hintText: "Enter the no of hours",
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        //errorText: incorrectPassword ? "User email or password is incorrect":null,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: TextFormField(
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                      //obscureText: true,
+                      validator: (value){
+
+                        if(value.length == 0){
+                          return "Credit cannot be empty";
+                        }
+                      },
+                      onSaved: (value){
+                        credit = value;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Enter the no of credits",
                         hintStyle: TextStyle(
                           color: Colors.white,
                         ),
@@ -151,7 +211,7 @@ class CourseCreaterState extends State<CourseCreater> {
   }
   void updateDetails() async {
     String url = 'http://10.0.2.2:3000/course/add';
-    String json = '{"courseName":"'+ courseName + '","hours":"'+hours+'","lectureId":"'+ id +'"}';
+    String json = '{"courseName":"'+ courseName + '","hours":"'+hours+'","credit":"'+ credit +'","courseCode":"'+ courseCode +'"}';
      var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
         body: json
