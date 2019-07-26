@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,6 +10,13 @@ class CoursePrinter extends StatefulWidget {
 }
 
 class _CoursePrinterState extends State<CoursePrinter> {
+
+  @override
+  void initState() {
+      super.initState();
+      getAllCourses();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +53,17 @@ class _CoursePrinterState extends State<CoursePrinter> {
         );
 
         if(response.statusCode ==201){
-          print(response.body);
+          decodeResponse(response.body);
         }
+  }
+  void decodeResponse(String responseBody) async{
+    Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
+      String name = map['message'];
+      print(name);
+        //go to home page
+       
+       
+        print(map['courses'][0]['name']);
+
   }
 }
