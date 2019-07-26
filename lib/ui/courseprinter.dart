@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodle_clone/modle/course.dart';
+import 'package:moodle_clone/ui/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class CoursePrinter extends StatefulWidget {
@@ -12,11 +14,14 @@ class CoursePrinter extends StatefulWidget {
 
 class _CoursePrinterState extends State<CoursePrinter> {
 
+  String id;
+  String type;
   List<Course> courseList = new List();
 
   @override
   void initState() {
       super.initState();
+      getSharedPreference();
       getAllCourses();
   }
   
@@ -68,6 +73,16 @@ class _CoursePrinterState extends State<CoursePrinter> {
                         child:Column(
                           children: <Widget>[
                             Text(courseList[index].name),
+                            IconButton(
+                              icon: Icon(
+                                Icons.add_box,
+                                color: Colors.redAccent,
+                                ),
+                              onPressed: (){
+                                addToMyCourses(index);
+                              },
+                              
+                            )
                             // buttonSet(snapshot,index),
                           ],
                         ),
@@ -86,6 +101,20 @@ class _CoursePrinterState extends State<CoursePrinter> {
     );
   }
 
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userId') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      id =  prefs.getString('userId');
+      type = prefs.getString('type');
+    }
+  }
+  
   void searchKeyPressed(){
 
   }
@@ -107,13 +136,28 @@ class _CoursePrinterState extends State<CoursePrinter> {
        
         for(int i =0;i< map['courses'].length;i++){
             setState(() {
-              courseList.add(new Course(map['courses'][i]['name'], map['courses'][i]['credit'],map['courses'][i]['hours'], map['courses'][i]['courseCode'])); 
+              courseList.add(new Course(map['courses'][i]['_id'],map['courses'][i]['name'], map['courses'][i]['credit'],map['courses'][i]['hours'], map['courses'][i]['courseCode'])); 
             });
         }
        
         
         print(map['courses'].length.toString());
 
+  }
+  addToMyCourses(int index) async{
+    String url;
+    if(type == "student"){
+      url ="http://10.0.2.2:3000/studentcourse/add";
+    }else{
+      url ="http://10.0.2.2:3000/lecturecourse/add";
+    }
+    // String json = '{"MyId":"'+ id + '","courseId":"'+courseList[index].id+'"}';
+    //  var response = await http.Client().post(url ,
+    //     headers: {'Content-Type': 'application/json',},
+    //     body: json
+    //     );
+
+      print(url);  
   }
 }
 
