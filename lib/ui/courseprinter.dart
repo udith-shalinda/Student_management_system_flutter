@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:moodle_clone/modle/course.dart';
 
 
 class CoursePrinter extends StatefulWidget {
@@ -61,8 +62,11 @@ class _CoursePrinterState extends State<CoursePrinter> {
       String name = map['message'];
       print(name);
         //go to home page
+       List<Course> list = new List();
+       list.add(new Course(map['courses'][0]['name'], map['courses'][0]['credit'],map['courses'][0]['hours'], map['courses'][0]['courseCode']));
+      print(list[0].name);
        
-       
+
         print(map['courses'][0]['name']);
 
   }
