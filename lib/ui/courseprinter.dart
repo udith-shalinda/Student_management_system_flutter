@@ -151,13 +151,13 @@ class _CoursePrinterState extends State<CoursePrinter> {
     }else{
       url ="http://10.0.2.2:3000/lecturecourse/add";
     }
-    // String json = '{"MyId":"'+ id + '","courseId":"'+courseList[index].id+'"}';
-    //  var response = await http.Client().post(url ,
-    //     headers: {'Content-Type': 'application/json',},
-    //     body: json
-    //     );
+    String json = '{"MyId":"'+ id + '","courseId":"'+courseList[index].id+'"}';
+     var response = await http.Client().post(url ,
+        headers: {'Content-Type': 'application/json',},
+        body: json
+        );
 
-      print(url);  
+      print(response.body);  
   }
 }
 
