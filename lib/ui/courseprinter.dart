@@ -12,6 +12,8 @@ class CoursePrinter extends StatefulWidget {
 
 class _CoursePrinterState extends State<CoursePrinter> {
 
+  List<Course> courseList = new List();
+
   @override
   void initState() {
       super.initState();
@@ -25,7 +27,7 @@ class _CoursePrinterState extends State<CoursePrinter> {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(56, 66, 86, 1),
         title: new Text(
-            "Login",
+            "All courses",
             style: TextStyle(
               fontSize: 25,
             ),
@@ -38,9 +40,49 @@ class _CoursePrinterState extends State<CoursePrinter> {
               )
         ],
       ),
-      body: ListView(
+      body: new ListView.builder(
+          itemCount: courseList.length,
+          itemBuilder: (BuildContext ctxt, int index) {
+              return new Card(
+                  elevation: 8.0,
+                  margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                  child: new Container(
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: new ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                                     leading: Container(
+                                       padding: EdgeInsets.only(right: 12.0),
+//                                        decoration: new BoxDecoration(
+//                                            border: new Border(
+//                                                right: new BorderSide(width: 1.0, color: Colors.white24))),
+                                       child: CircleAvatar(
+                                         radius: 30.0,
+                                         backgroundColor: Colors.blue,
+                                         child: new Text("fsf"),
+                                       ),
+                                     ),
+                      title: Text(courseList[index].courseCode),
+                      subtitle: Container(
+                        alignment: FractionalOffset.topLeft,
+                        padding: EdgeInsets.only(top: 30),
+                        child:Column(
+                          children: <Widget>[
+                            Text(courseList[index].name),
+                            // buttonSet(snapshot,index),
+                          ],
+                        ),
+                      ),
+                      trailing: new Icon(Icons.arrow_right, color: Colors.grey, size: 50.0),
 
-      ),
+                      onTap: (){
+                        // showQuestion(snapshot.key);
+                      },
+                    ),
+                  )
+              );
+            
+          }
+        )
     );
   }
 
@@ -62,12 +104,18 @@ class _CoursePrinterState extends State<CoursePrinter> {
       String name = map['message'];
       print(name);
         //go to home page
-       List<Course> list = new List();
-       list.add(new Course(map['courses'][0]['name'], map['courses'][0]['credit'],map['courses'][0]['hours'], map['courses'][0]['courseCode']));
-      print(list[0].name);
        
-
-        print(map['courses'][0]['name']);
+        for(int i =0;i< map['courses'].length;i++){
+            setState(() {
+              courseList.add(new Course(map['courses'][i]['name'], map['courses'][i]['credit'],map['courses'][i]['hours'], map['courses'][i]['courseCode'])); 
+            });
+        }
+       
+        
+        print(map['courses'].length.toString());
 
   }
 }
+
+
+                              
