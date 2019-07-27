@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodle_clone/modle/user.dart';
 import 'package:moodle_clone/ui/coursecreater.dart';
 import 'package:moodle_clone/ui/courseprinter.dart';
+import 'package:moodle_clone/ui/home.dart';
 import 'package:moodle_clone/ui/showStudentCourses.dart';
 import 'package:moodle_clone/ui/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -196,7 +197,7 @@ class _LoginState extends State<Login> {
         //go to home page
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
-              return new ShowStudentCourses();
+              return new Home();
             });
         Navigator.of(context).push(router);
   }

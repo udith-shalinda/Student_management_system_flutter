@@ -28,25 +28,7 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(52, 66, 86, .7),
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(56, 66, 86, 1),
-        title: new Text(
-            "All courses",
-            style: TextStyle(
-              fontSize: 25,
-            ),
-        ),
-        centerTitle: true,
-        actions: <Widget>[
-          new IconButton(
-              icon: Icon(Icons.search),
-              onPressed: searchKeyPressed,
-              )
-        ],
-      ),
-      body: new ListView.builder(
+    return ListView.builder(
           itemCount: courseList.length,
           itemBuilder: (BuildContext ctxt, int index) {
               return new Card(
@@ -88,8 +70,7 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
               );
             
           }
-        )
-    );
+        );
   }
 
   void getSharedPreference() async{
