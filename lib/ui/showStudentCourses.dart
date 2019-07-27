@@ -120,22 +120,29 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
 
         if(response.statusCode ==201){
           decodeResponse(response.body);
+          print(response.body);
         }
   }
   void decodeResponse(String responseBody) async{
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
-      String name = map['message'];
-      print(name);
-        //go to home page
+      String message = map['message'];
+      print(message);
+        // go to home page
        
-        // for(int i =0;i< map['courses'].length;i++){
-        //     setState(() {
-        //       courseList.add(new Course(map['courses'][i]['_id'],map['courses'][i]['name'], map['courses'][i]['credit'],map['courses'][i]['hours'], map['courses'][i]['courseCode'])); 
-        //     });
-        // }
+        for(int i =0;i< map['courses'].length;i++){
+            setState(() {
+              courseList.add(new Course(
+                map['courses'][i]['courseDetails'][0]['_id'],
+                map['courses'][i]['courseDetails'][0]['name'],
+                map['courses'][i]['courseDetails'][0]['credit'],
+                map['courses'][i]['courseDetails'][0]['hours'],
+                map['courses'][i]['courseDetails'][0]['courseCode']
+                )); 
+            });
+        }
        
         
-        // print(map['courses'].length.toString());
+        print(map['courses'][0]['courseDetails'][0]['_id']);
 
   }
   
