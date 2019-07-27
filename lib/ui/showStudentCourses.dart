@@ -120,7 +120,6 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
 
         if(response.statusCode ==201){
           decodeResponse(response.body);
-          print(response.body);
         }
   }
   void decodeResponse(String responseBody) async{
@@ -130,6 +129,7 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
         // go to home page
        
         for(int i =0;i< map['courses'].length;i++){
+          if(map['courses'][i]['studentId']== id){
             setState(() {
               courseList.add(new Course(
                 map['courses'][i]['courseDetails'][0]['_id'],
@@ -139,10 +139,8 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
                 map['courses'][i]['courseDetails'][0]['courseCode']
                 )); 
             });
+          }
         }
-       
-        
-        print(map['courses'][0]['courseDetails'][0]['_id']);
 
   }
   
