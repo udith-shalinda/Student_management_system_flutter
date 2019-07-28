@@ -110,17 +110,15 @@ class ShowStudentCoursesState extends State<ShowStudentCourses> {
         // go to home page
        
         for(int i =0;i< map['courses'].length;i++){
-          if(map['courses'][i]['studentId']== id){
-            setState(() {
-              courseList.add(new Course(
-                map['courses'][i]['courseDetails'][0]['_id'],
-                map['courses'][i]['courseDetails'][0]['name'],
-                map['courses'][i]['courseDetails'][0]['credit'],
-                map['courses'][i]['courseDetails'][0]['hours'],
-                map['courses'][i]['courseDetails'][0]['courseCode']
-                )); 
-            });
-          }
+          setState(() {
+            courseList.add(new Course(
+              map['courses'][i]['courseDetails'][0]['_id'],
+              map['courses'][i]['courseDetails'][0]['name'],
+              map['courses'][i]['courseDetails'][0]['credit'],
+              map['courses'][i]['courseDetails'][0]['hours'],
+              map['courses'][i]['courseDetails'][0]['courseCode']
+              )); 
+          });
         }
 
   }

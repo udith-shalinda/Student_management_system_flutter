@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodle_clone/ui/coursecreater.dart';
 import 'package:moodle_clone/ui/courseprinter.dart';
 import 'package:moodle_clone/ui/login.dart';
 import 'package:moodle_clone/ui/showLectureCourses.dart';
