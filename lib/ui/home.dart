@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:moodle_clone/ui/coursecreater.dart';
 import 'package:moodle_clone/ui/courseprinter.dart';
+import 'package:moodle_clone/ui/login.dart';
+import 'package:moodle_clone/ui/showLectureCourses.dart';
 import 'package:moodle_clone/ui/showStudentCourses.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //picking a date to book
 class Home extends StatefulWidget {
-
-   String userEmail='';
 
   @override
   HomeState createState() => HomeState();
@@ -15,12 +16,14 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with SingleTickerProviderStateMixin {
    
     TabController _controller;
+    String id;
+    String type;
    
 
    @override
    void initState(){
      super.initState();
-    //  getSharedPreference();
+     getSharedPreference();
       _controller = new TabController(length: 2, vsync: this);
     //  getProfileImage();
    }
@@ -52,9 +55,33 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
           controller: _controller,
           children: <Widget>[
               new CoursePrinter(),
-              new ShowStudentCourses()
+              homeWidget(),
           ],),
       
     );
+  }
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userId') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      setState(() {
+        id =  prefs.getString('userId');
+        type = prefs.getString('type');
+      });
+    }
+  }
+  Widget homeWidget(){
+    if(type == "lecture"){
+      return ShowLectureCourses();
+    }else if(type == "student"){
+      return ShowStudentCourses();
+    }else{
+      return Container();
+    }
   }
 }
