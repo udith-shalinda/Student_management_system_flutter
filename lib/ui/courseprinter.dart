@@ -126,19 +126,33 @@ class _CoursePrinterState extends State<CoursePrinter> {
 
   }
   addToMyCourses(int index) async{
+    String checkUrl;
     String url;
     if(type == "student"){
+      checkUrl = "http://10.0.2.2:3000/studentcourse/check";
       url ="http://10.0.2.2:3000/studentcourse/add";
     }else{
+      checkUrl = "http://10.0.2.2:3000/lecturecourse/check";
       url ="http://10.0.2.2:3000/lecturecourse/add";
     }
     String json = '{"MyId":"'+ id + '","courseId":"'+courseList[index].id+'"}';
-     var response = await http.Client().post(url ,
-        headers: {'Content-Type': 'application/json',},
-        body: json
-        );
 
-      print(response.body);  
+    var firstResponse = await http.Client().post(checkUrl,
+      headers: {'Content-Type': 'application/json',},
+        body: json
+    );
+    Map<String, dynamic> map = jsonDecode(firstResponse.body); // import 'dart:convert';
+      if(map['courses'].length == 0){
+        var response = await http.Client().post(url ,
+            headers: {'Content-Type': 'application/json',},
+            body: json
+            );
+
+          print(response.body);  
+      }else{
+        print("you have already enrolled");
+      }
+
   }
 }
 
