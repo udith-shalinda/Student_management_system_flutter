@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:moodle_clone/ui/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-import 'login.dart';
 
 class CourseCreater extends StatefulWidget {
   @override

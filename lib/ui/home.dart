@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moodle_clone/ui/courseprinter.dart';
+import 'package:moodle_clone/ui/lecture/showLectureCourses.dart';
 import 'package:moodle_clone/ui/login.dart';
-import 'package:moodle_clone/ui/showLectureCourses.dart';
-import 'package:moodle_clone/ui/showStudentCourses.dart';
+import 'package:moodle_clone/ui/student/showStudentCourses.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //picking a date to book
