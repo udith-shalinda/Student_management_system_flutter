@@ -56,7 +56,14 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
                         child:Column(
                           children: <Widget>[
                             Text(courseList[index].name),
-                            // buttonSet(snapshot,index),
+                            RaisedButton(
+                              child: Text("Students results"),
+                              onPressed: (){},
+                            ),
+                            RaisedButton(
+                              child: Text("upload Notes"),
+                              onPressed: (){},
+                            ),
                           ],
                         ),
                       ),

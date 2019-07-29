@@ -147,7 +147,6 @@ class _CoursePrinterState extends State<CoursePrinter> {
             headers: {'Content-Type': 'application/json',},
             body: json
             );
-
           print(response.body);  
       }else{
         print("you have already enrolled");
