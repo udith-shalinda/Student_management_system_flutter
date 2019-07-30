@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodle_clone/modle/course.dart';
+import 'package:moodle_clone/ui/lecture/showStudentsInCourse.dart';
 import 'package:moodle_clone/ui/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,7 +59,7 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
                             Text(courseList[index].name),
                             RaisedButton(
                               child: Text("Students results"),
-                              onPressed: (){},
+                              onPressed: studentResultPage,
                             ),
                             RaisedButton(
                               child: Text("upload Notes"),
@@ -127,6 +128,13 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
               )); 
           });
         }
+  }
+  void studentResultPage(){
+    var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new ShowStudentsInCourse();
+            });
+        Navigator.of(context).push(router);
   }
   
 }
