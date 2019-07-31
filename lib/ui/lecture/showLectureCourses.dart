@@ -59,7 +59,9 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
                             Text(courseList[index].name),
                             RaisedButton(
                               child: Text("Students results"),
-                              onPressed: studentResultPage,
+                              onPressed: (){
+                                studentResultPage(courseList[index].id);
+                              }
                             ),
                             RaisedButton(
                               child: Text("upload Notes"),
@@ -129,10 +131,10 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
           });
         }
   }
-  void studentResultPage(){
+  void studentResultPage(String courseId){
     var router = new MaterialPageRoute(
             builder: (BuildContext context){
-              return new ShowStudentsInCourse();
+              return new ShowStudentsInCourse(courseId:courseId);
             });
         Navigator.of(context).push(router);
   }
