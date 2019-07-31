@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodle_clone/modle/course.dart';
+import 'package:moodle_clone/modle/student.dart';
 import 'package:moodle_clone/ui/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,7 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
 
   String id;
   String type;
-  List<Course> courseList = new List();
+  List<Student> studentList = new List();
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
         title: Text("Students' in course"),
       ),
       body: ListView.builder(
-          itemCount: courseList.length,
+          itemCount: studentList.length,
           itemBuilder: (BuildContext ctxt, int index) {
               return new Card(
                   elevation: 8.0,
@@ -57,13 +58,13 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
                                          child: new Text("fsf"),
                                        ),
                                      ),
-                      title: Text(courseList[index].courseCode),
+                      title: Text(studentList[index].name),
                       subtitle: Container(
                         alignment: FractionalOffset.topLeft,
                         padding: EdgeInsets.only(top: 30),
                         child:Column(
                           children: <Widget>[
-                            Text(courseList[index].name),
+                            Text(studentList[index].result),
                             // buttonSet(snapshot,index),
                           ],
                         ),
@@ -109,7 +110,6 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
     var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
         );
-
         if(response.statusCode ==201){
           decodeResponse(response.body);
         }
@@ -120,14 +120,12 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
       print(message);
         // go to home page
        
-        for(int i =0;i< map['courses'].length;i++){
+        for(int i =0;i< map['students'].length;i++){
           setState(() {
-            courseList.add(new Course(
-              map['courses'][i]['courseDetails'][0]['_id'],
-              map['courses'][i]['courseDetails'][0]['name'],
-              map['courses'][i]['courseDetails'][0]['credit'],
-              map['courses'][i]['courseDetails'][0]['hours'],
-              map['courses'][i]['courseDetails'][0]['courseCode']
+            studentList.add(new Student(
+              map['students'][i]['_id'],
+              map['students'][i]['studentDetails'][0]['name'],
+              map['students'][i]['result']
               )); 
           });
         }
