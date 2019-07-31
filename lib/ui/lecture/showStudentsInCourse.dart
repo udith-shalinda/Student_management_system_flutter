@@ -8,7 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ShowStudentsInCourse extends StatefulWidget {
-
+  
+  final String courseId;
+  ShowStudentsInCourse({Key  key, @required this.courseId}):super(key:key);
   
   @override
   ShowStudentsInCourseState createState() => ShowStudentsInCourseState();
@@ -93,18 +95,18 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
     }else{
       id =  prefs.getString('userId');
       type = prefs.getString('type');
-      getStudentCourses();
+      getStudentsInCourses();
     }
   }
   
   void searchKeyPressed(){
 
   }
-  Future getStudentCourses() async{
+  Future getStudentsInCourses() async{
     
-    String url = "http://10.0.2.2:3000/studentcourse/get/$id";
+    String url = "http://10.0.2.2:3000/studentcourse/get/students/${widget.courseId}";
     
-    var response = await http.Client().get(url ,
+    var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
         );
 
@@ -129,7 +131,6 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
               )); 
           });
         }
-
   }
   
 }
