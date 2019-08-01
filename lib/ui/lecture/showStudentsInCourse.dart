@@ -105,10 +105,12 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
   }
   Future getStudentsInCourses() async{
     
-    String url = "http://10.0.2.2:3000/studentcourse/get/students/${widget.courseId}";
+    String url = "http://10.0.2.2:3000/studentcourse/get/studentsInCourse";
+    String json = "{'courseId':'"+ widget.courseId + "'}";
     
     var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
+        body: json,
         );
         if(response.statusCode ==201){
           decodeResponse(response.body);
