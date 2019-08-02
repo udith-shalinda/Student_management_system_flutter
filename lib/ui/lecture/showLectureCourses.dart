@@ -17,6 +17,7 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
 
   String id;
   String type;
+  String userDetailsId;
   List<Course> courseList = new List();
 
   @override
@@ -94,6 +95,7 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
     }else{
       id =  prefs.getString('userId');
       type = prefs.getString('type');
+      userDetailsId = prefs.getString('userDetailsId');
       getStudentCourses();
     }
   }
@@ -103,7 +105,7 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
   }
   Future getStudentCourses() async{
     
-    String url = "http://10.0.2.2:3000/lectureCourse/get/$id";
+    String url = "http://10.0.2.2:3000/lectureCourse/get/$userDetailsId";
     
     var response = await http.Client().get(url ,
         headers: {'Content-Type': 'application/json',},

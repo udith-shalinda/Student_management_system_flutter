@@ -36,6 +36,7 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Students' in course"),
+        backgroundColor: Color.fromRGBO(52, 66, 86, 1.0),
       ),
       body: ListView.builder(
           itemCount: studentList.length,
@@ -119,17 +120,17 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
       String message = map['message'];
       print(message);
-        // go to home page
+        
        
-        // for(int i =0;i< map['students'].length;i++){
-        //   setState(() {
-        //     studentList.add(new Student(
-        //       map['students'][i]['_id'],
-        //       map['students'][i]['studentDetails'][0]['name'],
-        //       map['students'][i]['result']
-        //       )); 
-        //   });
-        // }
+        for(int i =0;i< map['students'].length;i++){
+          setState(() {
+            studentList.add(new Student(
+              map['students'][i]['_id'],
+              map['students'][i]['studentDetails'][0]['name'],
+              map['students'][i]['result']
+              )); 
+          });
+        }
         print(map['students'].length.toString());
   }
   
