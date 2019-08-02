@@ -183,11 +183,14 @@ class _LoginState extends State<Login> {
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
       String id = map['userId'];
       String type = map['type'];
+      String userDetailsId = map['userDetailsId'];
+      print(userDetailsId);
 
     //save id and type
         final prefs = await SharedPreferences.getInstance();
         prefs.setString("userId", id);
         prefs.setString("type", type);
+        prefs.setString("userDetailsId",userDetailsId);
 
         //go to home page
         var router = new MaterialPageRoute(

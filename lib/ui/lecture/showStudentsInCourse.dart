@@ -105,12 +105,11 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
   }
   Future getStudentsInCourses() async{
     
-    String url = "http://10.0.2.2:3000/studentcourse/get/studentsInCourse";
-    String json = "{'courseId':'"+ widget.courseId + "'}";
-    
+    String url = "http://10.0.2.2:3000/studentcourse/studentsInCourse";
+    String json = '{"courseId":"'+ widget.courseId + '"}';
     var response = await http.Client().post(url ,
         headers: {'Content-Type': 'application/json',},
-        body: json,
+        body: json
         );
         if(response.statusCode ==201){
           decodeResponse(response.body);
@@ -122,15 +121,16 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
       print(message);
         // go to home page
        
-        for(int i =0;i< map['students'].length;i++){
-          setState(() {
-            studentList.add(new Student(
-              map['students'][i]['_id'],
-              map['students'][i]['studentDetails'][0]['name'],
-              map['students'][i]['result']
-              )); 
-          });
-        }
+        // for(int i =0;i< map['students'].length;i++){
+        //   setState(() {
+        //     studentList.add(new Student(
+        //       map['students'][i]['_id'],
+        //       map['students'][i]['studentDetails'][0]['name'],
+        //       map['students'][i]['result']
+        //       )); 
+        //   });
+        // }
+        print(map['students'].length.toString());
   }
   
 }
