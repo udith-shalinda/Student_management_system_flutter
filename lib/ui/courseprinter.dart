@@ -16,6 +16,7 @@ class _CoursePrinterState extends State<CoursePrinter> {
 
   String id;
   String type;
+  String userDetailsId;
   List<Course> courseList = new List();
 
   @override
@@ -93,6 +94,8 @@ class _CoursePrinterState extends State<CoursePrinter> {
     }else{
       id =  prefs.getString('userId');
       type = prefs.getString('type');
+      userDetailsId = prefs.getString('userDetailsId');
+      print(userDetailsId);
     }
   }
   
@@ -135,7 +138,7 @@ class _CoursePrinterState extends State<CoursePrinter> {
       checkUrl = "http://10.0.2.2:3000/lecturecourse/check";
       url ="http://10.0.2.2:3000/lecturecourse/add";
     }
-    String json = '{"MyId":"'+ id + '","courseId":"'+courseList[index].id+'"}';
+    String json = '{"MyId":"'+ userDetailsId + '","courseId":"'+courseList[index].id+'"}';
 
     var firstResponse = await http.Client().post(checkUrl,
       headers: {'Content-Type': 'application/json',},

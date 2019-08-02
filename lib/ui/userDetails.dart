@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:moodle_clone/ui/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -166,8 +167,11 @@ class UserDetailsState extends State<UserDetails> {
       String message = map['message'];
       print(message);
 
-
-
-        //go to home page
+        //  //go to home page
+        // var router = new MaterialPageRoute(
+        //     builder: (BuildContext context){
+        //       return new Home();
+        //     });
+        // Navigator.of(context).push(router);
   }
 }
