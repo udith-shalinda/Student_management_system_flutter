@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:moodle_clone/modle/course.dart';
 import 'package:moodle_clone/modle/student.dart';
+import 'package:moodle_clone/ui/lecture/addresultToStudent.dart';
 import 'package:moodle_clone/ui/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,7 +73,7 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
                       trailing: new Icon(Icons.arrow_right, color: Colors.grey, size: 50.0),
 
                       onTap: (){
-                        // showQuestion(snapshot.key);
+                        addResultToStudent(studentList[index].id);
                       },
                     ),
                   )
@@ -132,6 +132,13 @@ class ShowStudentsInCourseState extends State<ShowStudentsInCourse> {
           });
         }
         print(map['students'].length.toString());
+  }
+  void addResultToStudent(String studentCourseId){
+    var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new AddResult(studentCourseId:studentCourseId);
+            });
+        Navigator.of(context).push(router);
   }
   
 }
