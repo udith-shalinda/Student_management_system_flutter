@@ -107,16 +107,16 @@ class AddResultState extends State<AddResult> {
   
   Future addResult() async{
     
-    print(_character.index);
-    // String url = "http://10.0.2.2:3000/studentcourse/studentsInCourse";
-    // String json = '{"studentCourseId":"'+ widget.studentCourseId + '" , "Result" : "'+ +'"}';
-    // var response = await http.Client().post(url ,
-    //     headers: {'Content-Type': 'application/json',},
-    //     body: json
-    //     );
-    //     if(response.statusCode ==201){
-    //       // decodeResponse(response.body);
-    //     }
+    print(_character.toString().split('.').last);
+    String url = "http://10.0.2.2:3000/studentcourse/addResult";
+    String json = '{"studentCourseId":"'+ widget.studentCourseId + '" , "Result" : "'+ _character.toString().split('.').last +'"}';
+    var response = await http.Client().post(url ,
+        headers: {'Content-Type': 'application/json',},
+        body: json
+        );
+        if(response.statusCode ==201){
+          print(response.body);
+        }
   }
   
   
