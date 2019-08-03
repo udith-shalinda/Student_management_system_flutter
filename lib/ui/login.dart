@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
 
 
   bool incorrectPassword  = false;
+  bool incorrectEmail = false;
   var _formKey = GlobalKey<FormState>();
   String _email;
   String _formpassword;
@@ -91,6 +92,7 @@ class _LoginState extends State<Login> {
                         borderSide: BorderSide(
                         ),
                       ),
+                      errorText: incorrectEmail ? "User email is incorrect":null,
                     ),
                   ),
                 ),
@@ -116,7 +118,7 @@ class _LoginState extends State<Login> {
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),
-                      errorText: incorrectPassword ? "User email or password is incorrect":null,
+                      errorText: incorrectPassword ? "password is incorrect":null,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
@@ -177,7 +179,9 @@ class _LoginState extends State<Login> {
 
       if(response.statusCode == 201){
         homePage(response.body);
-      }      
+      }else if(response.statusCode ==401){
+        errorHandle(response.body); 
+      }     
   }
   void homePage(String responseBody) async{
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
@@ -198,6 +202,19 @@ class _LoginState extends State<Login> {
               return new Home();
             });
         Navigator.of(context).push(router);
+  }
+  void errorHandle(String responseBody) async{
+    Map<String, dynamic> map = jsonDecode(responseBody); 
+    String message = map['message'];
+    if("Password" == message){
+      setState(() {
+        incorrectPassword = true;
+      });
+    }else if("Email" == message){
+      setState(() {
+       incorrectEmail = true; 
+      });
+    }
   }
 
 }
