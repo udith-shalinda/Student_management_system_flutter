@@ -82,6 +82,7 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.redAccent,
                         ),
                       ),
+                      errorText: incorrectPassword ? "User email is already has an account":null,
                     ),
                   ),
                 ),
@@ -107,7 +108,6 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),
-                      errorText: incorrectPassword ? "User email or password is incorrect":null,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
@@ -169,7 +169,11 @@ class _SignUpState extends State<SignUp> {
 
       if(response.statusCode == 201){
         userDetailsPage(response.body);
-      } 
+      }else if(response.statusCode == 500){
+        setState(() {
+          incorrectPassword = true;
+        });
+      }
   }
   void userDetailsPage(String responseBody) async{
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
