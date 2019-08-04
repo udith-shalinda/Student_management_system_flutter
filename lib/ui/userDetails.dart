@@ -164,14 +164,17 @@ class UserDetailsState extends State<UserDetails> {
   }
   void homePage(String responseBody) async{
     Map<String, dynamic> map = jsonDecode(responseBody); // import 'dart:convert';
-      String message = map['message'];
-      print(message);
+      // String message = map['message'];
+      String userDetailsId = map['userDetailsId'];
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString("userDetailsId", userDetailsId);
+      
 
         //  //go to home page
-        // var router = new MaterialPageRoute(
-        //     builder: (BuildContext context){
-        //       return new Home();
-        //     });
-        // Navigator.of(context).push(router);
+        var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new Home();
+            });
+        Navigator.of(context).push(router);
   }
 }
