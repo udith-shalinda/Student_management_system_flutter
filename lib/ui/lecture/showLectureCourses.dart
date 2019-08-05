@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodle_clone/modle/course.dart';
@@ -66,7 +68,9 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
                             ),
                             RaisedButton(
                               child: Text("upload Notes"),
-                              onPressed: (){},
+                              onPressed: (){
+                                uploadPdf();
+                              },
                             ),
                           ],
                         ),
@@ -140,7 +144,14 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
             });
         Navigator.of(context).push(router);
   }
-  
+  void uploadPdf() async{
+    try{
+      File file = await FilePicker.getFile(type: FileType.ANY);
+      print(file);
+    }catch(e){
+      print(e);
+    }
+  }
 }
 
 
