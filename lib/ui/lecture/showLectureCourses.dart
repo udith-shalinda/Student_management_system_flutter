@@ -147,7 +147,19 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
   void uploadPdf() async{
     try{
       File file = await FilePicker.getFile(type: FileType.ANY);
-      print(file);
+      if(file != null){
+        //update course notes
+        String url = 'http://10.0.2.2:3000/lectureCourse/get/$userDetailsId';
+        String json = '{"file":"'+ file.readAsStringSync() + '"}';
+        var response = await http.Client().post(url ,
+            headers: {'Content-Type': 'application/json',},
+            body: json
+            );
+
+          if(response.statusCode == 201){
+            print(response.body);
+          }    
+      }
     }catch(e){
       print(e);
     }
