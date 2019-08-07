@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:moodle_clone/modle/course.dart';
 import 'package:moodle_clone/ui/lecture/showStudentsInCourse.dart';
 import 'package:moodle_clone/ui/login.dart';
@@ -146,11 +147,15 @@ class ShowLectureCoursesState extends State<ShowLectureCourses> {
   }
   void uploadPdf() async{
     try{
-      File file = await FilePicker.getFile(type: FileType.ANY);
+      // File file = await FilePicker.getFile(type: FileType.ANY);
+      File file = await ImagePicker.pickImage(source: ImageSource.gallery);
+
       if(file != null){
+        print("file is not null and call the back end");
         //update course notes
         String url = 'http://10.0.2.2:3000/lectureCourse/update/$userDetailsId';
-        String json = '{"file":"'+ file.readAsStringSync() + '"}';
+        // String json = '{"file":"'+ base64Encode(file.readAsBytesSync()) + '"}';
+        String json = '{"file":"'+  base64Encode(file.readAsBytesSync()) + '"}';
         var response = await http.Client().post(url ,
             headers: {'Content-Type': 'application/json',},
             body: json
